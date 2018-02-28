@@ -8,8 +8,6 @@ import android.widget.ImageView;
 
 import com.williamgdev.example.mvvmdesign.databinding.ActivityMainBinding;
 
-import java.util.concurrent.TimeUnit;
-
 import io.reactivex.Observable;
 
 public class MainViewModel extends BaseObservable {
@@ -24,14 +22,17 @@ public class MainViewModel extends BaseObservable {
     }
 
     private void init() {
-        Observable.timer(3, TimeUnit.SECONDS)
-                .subscribe(aLong -> {
-                    hide.set(true);
-                }, throwable -> {}, () -> {});
+//        Observable.timer(3, TimeUnit.SECONDS)
+//                .subscribe(aLong -> {
+//                    hide.set(true);
+//                }, throwable -> {}, () -> {});
         binding.button.setOnClickListener(v -> {
-            message.set("hello");
             url.set("SHOW");
-//            hide.set(true);
+            hide.set(true);
+            getText()
+                    .subscribe(text -> {
+                message.set(text);
+            });
         });
     }
 
@@ -40,5 +41,18 @@ public class MainViewModel extends BaseObservable {
         if(!url.get().equalsIgnoreCase("OK")) {
             imageView.setImageResource(R.mipmap.ic_launcher_round);
         }
+    }
+
+    private Observable<String> getText() {
+        return Observable.create(emitter -> {
+            // write your code
+            emitter.onNext("Welcome");
+            // more logic if needed
+            emitter.onNext("Welcome Again");
+            //handle the exceptions
+//            emitter.onError(new Throwable("Error loading the message"));
+            //Notify the logic is done
+            emitter.onComplete();
+        });
     }
 }
