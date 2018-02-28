@@ -8,6 +8,10 @@ import android.widget.ImageView;
 
 import com.williamgdev.example.mvvmdesign.databinding.ActivityMainBinding;
 
+import java.util.concurrent.TimeUnit;
+
+import io.reactivex.Observable;
+
 public class MainViewModel extends BaseObservable {
     private ActivityMainBinding binding;
     public static ObservableField<String> message = new ObservableField<>("Do something");
@@ -20,10 +24,14 @@ public class MainViewModel extends BaseObservable {
     }
 
     private void init() {
+        Observable.timer(3, TimeUnit.SECONDS)
+                .subscribe(aLong -> {
+                    hide.set(true);
+                }, throwable -> {}, () -> {});
         binding.button.setOnClickListener(v -> {
             message.set("hello");
             url.set("SHOW");
-            hide.set(true);
+//            hide.set(true);
         });
     }
 
