@@ -12,6 +12,7 @@ public class MainViewModel extends BaseObservable {
     private ActivityMainBinding binding;
     public static ObservableField<String> message = new ObservableField<>("Do something");
     public static ObservableField<String> url = new ObservableField<>("OK");
+    public static ObservableField<Boolean> hide = new ObservableField<>();
 
     public MainViewModel(ActivityMainBinding binding) {
         this.binding = binding;
@@ -22,6 +23,7 @@ public class MainViewModel extends BaseObservable {
         binding.button.setOnClickListener(v -> {
             message.set("hello");
             url.set("SHOW");
+            hide.set(true);
         });
     }
 

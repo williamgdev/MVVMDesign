@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
+        <import type="android.view.View"/>
         <variable
             name="viewModel"
             type="com.williamgdev.example.mvvmdesign.MainViewModel" />
@@ -19,6 +19,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
+            android:visibility="@{viewModel.hide ? View.VISIBLE: View.GONE}"
             android:text="@{viewModel.message}" />
 
         <Button
